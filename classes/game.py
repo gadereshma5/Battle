@@ -11,15 +11,42 @@ class bcolors:
 
 class person:
 	def __init__(self,hp,mp,atk,df,magic):
-		selfmaxhp=hp   # max heap points
+		self.maxhp=hp   # max heap points
 		self.hp=hp     # its going to change
-		selfmaxmp=mp
+		self.maxmp=mp
 		self.mp=mp
 		self.atkl=atk-10
 		self.atkh=atk+10
 		self.df=df
 		self.magic=magic
-		self.action=("attack","magic")
+		self.actions=("attack","magic")
 
 	def generate_damage(self):
-		random.randrange(self.atkl,self.atkh)
+		return random.randrange(self.atkl,self.atkh)
+
+	def generate_spell(self,i):
+		mgl= self.magic[i]["dmg"]-5
+		mgh= self.magic[i]["dmg"]+5
+		return random.randrange(mgl,mgh)
+
+	def take_dmg(self,dmg):
+		self.hp -=dmg
+		if self.hp<0:
+			self.hp=0
+		return self.hp
+
+	def get_hp(self):
+		return self.hp
+
+	def max_hp(self):
+		return self.maxhp
+
+	def mp(self):
+		return self.mp
+
+	def max_mp(self):
+		return self.maxmp
+
+	def reduce_mp(self,cost):
+		self.mp -= cost
+
